@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AccountService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.bancolombia.puebatecnica.application.services</a>
+</div>
+
+<h1>Coverage Summary for Class: AccountService (com.bancolombia.puebatecnica.application.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AccountService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.bancolombia.puebatecnica.application.services;
+&nbsp;
+&nbsp;
+&nbsp;import com.bancolombia.puebatecnica.application.utils.UtilsAccount;
+&nbsp;import com.bancolombia.puebatecnica.application.ports.input.AccountServicePort;
+&nbsp;import com.bancolombia.puebatecnica.application.ports.output.AccountPersistencePort;
+&nbsp;import com.bancolombia.puebatecnica.domain.exceptions.DefaultException;
+&nbsp;import com.bancolombia.puebatecnica.domain.models.Account;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;@Service
+&nbsp;@AllArgsConstructor
+&nbsp;public class AccountService implements AccountServicePort {
+&nbsp;
+&nbsp;    private UtilsAccount utilsAccount;
+&nbsp;    private final AccountPersistencePort accountPersistencePort;
+&nbsp;    @Override
+&nbsp;    public String createAccount(String name, String surname, String id, String idType){
+&nbsp;
+<b class="fc">&nbsp;        String numberAccount = utilsAccount.generateAccountNumber();</b>
+&nbsp;        while(true){
+<b class="fc">&nbsp;            Account account = accountPersistencePort.getAccountById(numberAccount);</b>
+<b class="fc">&nbsp;            if(account==null){</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            numberAccount = utilsAccount.generateAccountNumber();</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        Account account = Account.builder()</b>
+<b class="fc">&nbsp;                .numberAccount(numberAccount)</b>
+<b class="fc">&nbsp;                .identification(id)</b>
+<b class="fc">&nbsp;                .identificationType(idType)</b>
+<b class="fc">&nbsp;                .name(name)</b>
+<b class="fc">&nbsp;                .surname(surname)</b>
+<b class="fc">&nbsp;                .balance(0L)</b>
+<b class="fc">&nbsp;                .build();</b>
+<b class="fc">&nbsp;        return accountPersistencePort.save(account);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getBalance(String numberAccount){
+&nbsp;        try{
+<b class="fc">&nbsp;            return accountPersistencePort.getAccountById(numberAccount).getBalance().toString();</b>
+<b class="fc">&nbsp;        }catch (Exception e){</b>
+<b class="fc">&nbsp;            throw new DefaultException(&quot;account-error&quot;,&quot;noAccountFound&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-02-27 09:48</div>
+</div>
+</body>
+</html>
