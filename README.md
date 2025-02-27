@@ -146,8 +146,6 @@ http://localhost:8080/swagger-ui/index.html
     @import "./css/coverage.css";
     @import "./css/idea.min.css";
   </style>
-  <script type="text/javascript" src="./js/highlight.min.js"></script>
-  <script type="text/javascript" src="./js/highlightjs-line-numbers.min.js"></script>
 </head>
 
 <body>
@@ -361,21 +359,5 @@ Current scope:     all classes
 </table>
 </div>
 
-<script type="text/javascript">
-(function() {
-    var msie = false, msie9 = false;
-    /*@cc_on
-      msie = true;
-      @if (@_jscript_version >= 9)
-        msie9 = true;
-      @end
-    @*/
-
-    if (!msie || msie && msie9) {
-      hljs.highlightAll()
-      hljs.initLineNumbersOnLoad();
-    }
-})();
-</script>
 </body>
 </html>
