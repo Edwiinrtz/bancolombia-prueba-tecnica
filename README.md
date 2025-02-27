@@ -139,14 +139,6 @@ http://localhost:8080/swagger-ui/index.html
 
 <!DOCTYPE html>
 <html id="htmlId">
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Summary</title>
-  <style type="text/css">
-    @import "./css/coverage.css";
-    @import "./css/idea.min.css";
-  </style>
-</head>
 
 <body>
 <div class="content">
